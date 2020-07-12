@@ -6,37 +6,52 @@ using namespace std;
 int main() 
 {
 	FAST_IO;
-	vector<ll> vec;
-	vector<ll>::iterator pos;
-	ll lower,upper;
 	ll num;
 	cin>>num;
-	ll val;
 	
 	for(ll i=0;i<num;i++)
 	{
-	    cin>>val;
-	    vec.emplace_back(val);
-	}
-	ll n;
-	cin>>n;
-	for(ll i=0;i<n;i++)
-	{
-	    ll v;
-	    cin>>v;
-	    
-	    pos=find(vec.begin(),vec.end(),v);
-	    
-	    if(pos!=vec.end())
+	    ll n;
+	    cin>>n;
+	    ll arr[n];
+	    for(ll j=0;j<n;j++)
 	    {
-	        lower=lower_bound(vec.begin(),vec.end(),v)-vec.begin();
-	        upper=upper_bound(vec.begin(),vec.end(),v)-vec.begin()-1;
-	        cout<<lower<<" "<<upper<<endl;
+	        cin>>arr[j];
 	    }
-	    else 
+	    ll money;
+	    cin>>money;
+	    
+	    sort(arr,arr+n);
+	    ll min=1000001;
+	    ll p1=0,p2=0;
+	    
+	    ll srt=0;
+	    ll end=n-1;
+	    
+	    while(srt<end)
 	    {
-	        cout<<-1<<" "<<-1<<endl;
+	        if(arr[srt]+arr[end]==money)
+	        {
+	            if(arr[end]-arr[srt]<=min)
+	            {
+	                p1=arr[srt];
+	                p2=arr[end];
+	                min=arr[end]-arr[srt];
+	            }
+	            srt++;
+	            end--;
+	        }
+	        if(arr[srt]+arr[end]>money)
+	        {
+	            end--;
+	        }
+	        else if(arr[srt]+arr[end]<money)
+	        {
+	            srt++;
+	        }
 	    }
+	    cout<<"Deepak should buy roses whose prices are "<<p1<<" "<<"and"<<" "<<p2<<"."<<endl;
 	}
-    return 0;
+	return 0;
+
 }
